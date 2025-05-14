@@ -1,8 +1,7 @@
 package app.ecommerce.entities;
 
 import app.ecommerce.enums.CategoryType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,7 +12,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-// @Table(name = "categories")
+@Table
 // @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 // @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 // @JsonIdentityReference(alwaysAsId = true)
@@ -25,9 +24,17 @@ import lombok.Setter;
 // @JsonRootName("category")
 public class Category {
 
-    @Id
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_category")
     private Long idCategory;
+
+    @Column(length = 30)
     private String name;
+
+    @Column(length = 50)
     private String description;
-    private CategoryType categoryType;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "category_type", length = 20)
+    private CategoryType type;
 }
